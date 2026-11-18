@@ -8,9 +8,11 @@ const signUp = asyncHandler(async (req,res) =>{
 
     const existingUser = await Users.findOne({email})
 
-    if(existingUser ){
-        throw new Error ("User Already Exists")
-    }
+    if (existingUser) {
+    return res.status(409).json({
+        message: 'This email is already registered. Please login instead.'
+    });
+}
 
     const user = await Users.create({
         name,email,password 
